@@ -64,8 +64,8 @@ uiMainLoopCount = 0;
   for (;;)
   {
     ++uiMainLoopCount; // increments the count of the loop
-    RED(uiMainLoopCount); // runs the function to determine if the red led should be on
-    GREEN(uiMainLoopCount); // runs the function to determine if the green led should be on
+    RED(uiMainLoopCount); 
+    GREEN(uiMainLoopCount); 
 
   }                   
 }
@@ -73,7 +73,7 @@ uiMainLoopCount = 0;
 /********************************************************************/
 // Functions
 /********************************************************************/
-void RED (int bOn)
+void RED (unsigned int bOn) // runs the function to determine if the red led should be on
         {
             if (bOn < 0x1000)
                 PT1AD1 |= (byte)(((unsigned int)1 << (7)));
@@ -84,7 +84,7 @@ void RED (int bOn)
 
         }
 
-void GREEN(int bOn)
+void GREEN(unsigned int bOn) // runs the function to determine if the green led should be on
         {
             if (bOn >= 0x1000)
             {

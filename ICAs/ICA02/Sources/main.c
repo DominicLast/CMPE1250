@@ -1,12 +1,13 @@
 /********************************************************************/
-// HC12 Program:  YourProg - MiniExplanation
+// HC12 Program:  ICA02 - transfering C# code to C 
 // Processor:     MC9S12XDP512
-// Bus Speed:     MHz
-// Author:        This B. You
-// Details:       A more detailed explanation of the program is entered here               
-// Date:          Date Created
+// Bus Speed:     12 MHz
+// Author:        Dominic Lastauskas
+// Details:       the program will alternate the red and green led to blink in an alternating pattern           
+// Date:          1/17/2024
 // Revision History :
-//  each revision will have a date + desc. of changes
+//  1/17/2024 - started the transitioning between C# and C
+//  1/19/2024 - finishin the comments on the program
 
 
 
@@ -32,7 +33,7 @@
 /********************************************************************/
 // Global Variables
 /********************************************************************/
-static unsigned short uiMainLoopCount;
+static unsigned short uiMainLoopCount; // will be incremented to determine which led should be on creating the alternating pattern
 void RED(int);
 void GREEN(int);
 /********************************************************************/
@@ -62,9 +63,9 @@ uiMainLoopCount = 0;
 
   for (;;)
   {
-    ++uiMainLoopCount;
-    RED(uiMainLoopCount);
-    GREEN(uiMainLoopCount);
+    ++uiMainLoopCount; // increments the count of the loop
+    RED(uiMainLoopCount); // runs the function to determine if the red led should be on
+    GREEN(uiMainLoopCount); // runs the function to determine if the green led should be on
 
   }                   
 }

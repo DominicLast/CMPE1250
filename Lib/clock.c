@@ -33,7 +33,7 @@ void Clock_Set8MHZ(void){
 
 unsigned long Clock_GetBusSpeed(void){
     if (CLKSEL > 0){
-        return(((SYNR + 1) / (REFDV + 1)) * 2 * 16);
+        return(((SYNR + 1) / (REFDV + 1)) * 2 * 16) / 2;
     }
     else{
         return 8;

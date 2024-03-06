@@ -4,7 +4,8 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "C:/Program Files (x86)/Freescale/CWS12v5.1/lib/**"
+                "C:/Program Files (x86)/Freescale/CWS12v5.1/lib/**",
+                "C:/Program Files (x86)/Freescale/CWS12v5.1/lib/hc12c/include/**"
             ],
             "defines": [
                 "_DEBUG",

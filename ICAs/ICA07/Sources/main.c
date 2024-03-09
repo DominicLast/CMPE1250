@@ -16,6 +16,7 @@
 #include <hidef.h>      /* common defines and macros */
 #include "derivative.h" /* derivative-specific definitions */
 #include "sw_led.h"
+#include "rti.h"
 #include "clock.h"
 
 //Other system includes or your includes go here
@@ -34,8 +35,7 @@
 /********************************************************************/
 // Global Variables
 /********************************************************************/
-unsigned long LoopAmount = 0;
-unsigned long BusSpeed = 0;
+
 /********************************************************************/
 // Constants
 /********************************************************************/
@@ -53,19 +53,55 @@ void main(void)
   
 /********************************************************************/
   // one-time initializations
-  RTI_Init();
 /********************************************************************/
 SWL_Init();
+RTI_Init();
 /********************************************************************/
   // main program loop
 /********************************************************************/
   for (;;)
   {
-    Clock_Set20MHZ();
-    SWL_TOG(SWL_RED);
-    for (LoopAmount = 0; LoopAmount <= 21000; LoopAmount++);
-    BusSpeed = Clock_GetBusSpeed();
+    if(SWL_Pushed(SWL_RIGHT)){
+      SWL_ON(SWL_GREEN);
+      SWL_OFF(SWL_RED);
+    }
+    else{
+      SWL_OFF(SWL_GREEN);
+      if(SWL_Pushed(SWL_LEFT)){
+      SWL_ON(SWL_RED);
+      RTI_Delay_ms(1);
+      SWL_OFF(SWL_RED);
+      RTI_Delay_ms(9);
+      
+    }
+    else{
+      if(SWL_Pushed(SWL_DOWN) && SWL_Pushed(SWL_UP)){
+      RTI_Delay_ms(10);
+      SWL_TOG(SWL_RED);
+    }
+    else{
+      if(SWL_Pushed(SWL_UP)){
+      RTI_Delay_ms(8);
+      SWL_TOG(SWL_RED);
+    }
+    if(SWL_Pushed(SWL_DOWN)){
+      RTI_Delay_ms(12);
+      SWL_TOG(SWL_RED);
+    }
+    
+    
+    if(!SWL_Pushed(SWL_ANY)){
+      RTI_Delay_ms(10);
+      SWL_TOG(SWL_RED);
+    }
+    }
+      
+    }
+    
+    
   }
+    }
+    
                    
 
 }

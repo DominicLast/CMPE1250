@@ -4,19 +4,19 @@
 
 void RTI_Delay_ms(unsigned int ms){
     unsigned int i;
-    i = 0;
-
-    CRGFLG = CRGFLG_RTIF_MASK; //clear flag, VERY IMPORTANT
-
-    
-    for( i < ms * 100; i++;){
-    
-    RTICTL = 0b10010111;
-        if (CRGFLG_RTIF) // RTI period over?
-        {
-            CRGFLG = CRGFLG_RTIF_MASK; //clear flag, VERY IMPORTANT
-        }
+    RTICTL = 0;
+    if((CRGFLG_RTIF)){
+        CRGFLG = CRGFLG_RTIF_MASK;
     }
+    RTICTL = 0b10010111;
+        
+    for(i = 0; i<ms;i++){
+        while(!CRGFLG_RTIF);
+        CRGFLG = CRGFLG_RTIF_MASK;
+    }
+    
+    
+    RTICTL = 0;
 }
 
 void RTI_Init(void){

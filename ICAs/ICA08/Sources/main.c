@@ -17,6 +17,9 @@
 #include "derivative.h" /* derivative-specific definitions */
 #include "sw_led.h"
 #include "clock.h"
+#include "sci.h"
+#include "misc.h"
+#include "rti.h"
 
 //Other system includes or your includes go here
 //#include <stdlib.h>
@@ -27,6 +30,8 @@
 //Defines
 /********************************************************************/
 unsigned char data;
+unsigned char ReadData;
+unsigned char * pData = &ReadData;
 /********************************************************************/
 // Local Prototypes
 /********************************************************************/
@@ -55,36 +60,28 @@ void main(void)
 /********************************************************************/
 SWL_Init();
 Clock_Set20MHZ();
-SCI0BD = 130; // sets the rate
-
-    SCI0CR2_TE = 1;
-    SCI0CR2_RE = 1; // turn on TX/RX // 11.3.2.6
+sci0_Init9600();
 /********************************************************************/
   // main program loop
 /********************************************************************/
   for (;;)
   {
-    
-
+    RTI_Delay_ms(50);
+  data = GetRandom (0, 26) + 'A';
     // if the transmitter buffer is empty, load a new byte to send (TX)
- if (SCI0SR1_TDRE /*&& SWL_Transition (SWL_CTR)*/)
- {
-   SCI0DRL = 'A';
-   
- }
- 
- if (SCI0SR1_TDRE /*&& SWL_Transition (SWL_CTR)*/)
- {
-   SCI0DRL = "\x1b[31m";
-   
- }
-
+ sci0_txByte (data);
+  SWL_TOG(SWL_RED);
  // if a byte has been received, pull it!
- if (SCI0SR1_RDRF){
-  SWL_ON(SWL_RED);
- }
+ ReadData = sci0_rxByte(&ReadData);
   
-
+if(ReadData=='A' ||ReadData=='E' ||ReadData=='I' ||ReadData=='O' ||ReadData=='U'){
+  SWL_ON(SWL_GREEN);
+  SWL_OFF(SWL_YELLOW);
+}
+else{
+  SWL_ON(SWL_YELLOW);
+  SWL_OFF(SWL_GREEN);
+}
 
                    
 

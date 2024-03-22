@@ -23,3 +23,22 @@ void sci0_txByte (unsigned char data){ // sends
    SCI0DRL = data;
  }
 }
+
+void sci0_txStr (char const * straddr)
+{
+for (; *straddr; ++straddr){
+sci0_txByte (*straddr);
+}
+
+}
+
+unsigned long sci0_InitMath (unsigned long ulBusClock, unsigned long ulBaudRate){
+    return ulBusClock * (ulBaudRate*16);
+}
+
+void sci0_Init(unsigned long ulBaudRate, unsigned long ulBusClock){
+    SCI0BD = sci0_InitMath(ulBusClock,ulBaudRate);
+
+    SCI0CR2_TE = 1;
+    SCI0CR2_RE = 1;
+}

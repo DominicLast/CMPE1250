@@ -1,10 +1,10 @@
 /********************************************************************/
-// HC12 Program:  ica08
+// HC12 Program:  ICA09
 // Processor:     MC9S12XDP512
 // Bus Speed:     MHz
 // Author:        Dominic Lastauskas
 // Details:       first lab exam           
-// Date:          3/16/2024
+// Date:          3/22/2024
 // Revision History :
 //  each revision will have a date + desc. of changes
 
@@ -32,6 +32,8 @@
 unsigned char data;
 unsigned char ReadData;
 unsigned char * pData = &ReadData;
+unsigned int i;
+char str[];
 /********************************************************************/
 // Local Prototypes
 /********************************************************************/
@@ -60,30 +62,46 @@ void main(void)
 /********************************************************************/
 SWL_Init();
 Clock_Set20MHZ();
-sci0_Init9600();
+//sci0_Init(19200,20000000); // THIS IS THE PROBLEM
+//sci0_Init9600();
+SCI0BD = 65; // sets the rate
 
+    SCI0CR2_TE = 1;
+    SCI0CR2_RE = 1;
 /********************************************************************/
   // main program loop
 /********************************************************************/
   for (;;)
   {
     
-    RTI_Delay_ms(50);
-  data = GetRandom (0, 26) + 'A';
+    RTI_Delay_ms(250);
+
+  for(i = 0; i < 20; i++){
+    data = GetRandom (0, 26);
+  if(SWL_Pushed(SWL_CTR)){
+    data = data + 'A';
+  }
+  else{
+    data = data + 'a';
+  }
+  }
+  
+  
     // if the transmitter buffer is empty, load a new byte to send (TX)
- sci0_txByte (data);
+    sci0_txStr("Hello World!! ");
+ //sci0_txByte('A');
   SWL_TOG(SWL_RED);
  // if a byte has been received, pull it!
- ReadData = sci0_rxByte(&ReadData);
+ //ReadData = sci0_rxByte(&ReadData);
   
-if(isVowel(ReadData)){
-  SWL_ON(SWL_GREEN);
-  SWL_OFF(SWL_YELLOW);
-}
-else{
-  SWL_ON(SWL_YELLOW);
-  SWL_OFF(SWL_GREEN);
-}
+//if(isVowel(ReadData)){
+ // SWL_ON(SWL_GREEN);
+ // SWL_OFF(SWL_YELLOW);
+//}
+//else{
+ // SWL_ON(SWL_YELLOW);
+ // SWL_OFF(SWL_GREEN);
+//}
 
                    
 

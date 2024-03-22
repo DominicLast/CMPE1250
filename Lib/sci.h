@@ -53,10 +53,13 @@ typedef SCI_Typedef* SCI_Base;
 /* BASIC FUNCTIONS, to be coded in CMPE1250*******************************/
 //SCI0 - Normal mode: RDX0-> PS0 (PIN 89), TDX0-> PS1 (PIN 90)
 // set baud, returns actual baud
-unsigned long sci0_Init(unsigned long ulBaudRate, int iRDRF_Interrupt);
+//unsigned long sci0_Init(unsigned long ulBaudRate, int iRDRF_Interrupt);
+void sci0_Init(unsigned long ulBaudRate, unsigned long ulBusClock);
 
 // initialize SCI0 at 9600 BAUD
 void sci0_Init9600 (void);
+
+unsigned long sci0_InitMath (unsigned long ulBusClock, unsigned long ulBaudRate);
 
 // blocking byte read
 // waits for a byte to arrive and returns it

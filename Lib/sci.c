@@ -33,7 +33,7 @@ sci0_txByte (*straddr);
 }
 
 void sci0_Init(unsigned long ulBaudRate, unsigned long ulBusClock){
-    SCI0BD = ulBusClock * (ulBaudRate*16);
+    SCI0BD = (int)(ulBusClock / (ulBaudRate*16.0));
 
     SCI0CR2_TE = 1;
     SCI0CR2_RE = 1;

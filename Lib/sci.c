@@ -18,10 +18,8 @@ unsigned char sci0_rxByte(unsigned char * pData){ //reads
 }
 
 void sci0_txByte (unsigned char data){ // sends
-    if (SCI0SR1_TDRE /*&& SWL_Transition (SWL_CTR)*/)
- {
+    while (!SCI0SR1_TDRE /*&& SWL_Transition (SWL_CTR)*/);
    SCI0DRL = data;
- }
 }
 
 void sci0_txStr (char const * straddr)

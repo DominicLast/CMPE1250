@@ -36,3 +36,26 @@ void sci0_Init(unsigned long ulBaudRate, unsigned long ulBusClock){
     SCI0CR2_TE = 1;
     SCI0CR2_RE = 1;
 }
+
+int sci0_Peek (void){
+    if(SCI0SR1 & SCI0SR1_RDRF_MASK){
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}
+
+void sci0_GotoXY (int iCol, int iRow){
+    char string[8] = "\x1b[2;0H";
+    //string[0] = ('\\');
+    //string[1] = ('x');
+    //string[2] = ('1');
+    //string[3] = ('b');
+    //string[4] = ('[');
+    string[5] = ((char)iCol);
+    //string[6] = (';');
+    string[7] = ((char)iRow);
+    //string[8] = ('H');
+    sci0_txStr(string);
+}

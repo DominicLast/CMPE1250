@@ -75,6 +75,43 @@ void sci0_txByte (unsigned char data);
 // send a null-terminated string over SCI
 void sci0_txStr (char const * straddr);
 
+
+// New stuff below was added for the lab to be compleated
+
+// return 1 if RDRF set, otherwise return 0
+int sci0_Peek (void);
+
+// use an escape sequence to place the cursor at the specified position
+// this is the \x1B[y;xH form with formatted argument replacement (sprintf)
+void sci0_GotoXY (int iCol, int iRow);
+
+
+// use sci0_GotoXY and sci0_txStr to place the string
+void sci0_txStrXY (int iCol, int iRow, char const * straddr);
+
+// use an escape sequence to clear the terminal
+void sci0_ClearScreen (void);
+
+// output 1s and 0s to display a 16-bit value
+// as binary on the SCI at the current position
+void sci0_ShowBin16 (unsigned int iVal);
+
+// take a single ASCII character that looks like HEX and
+// convert it to the numerical equivalent
+// valid characters are '0'-'9', 'a'-'f', 'A'-'F'
+// all other ASCII codes return 0
+int ToDigitVal (char digit);
+
+// convert the 4 character ASCII array representation
+// into a single 16-bit value
+// uses ToDigitVal to convert each position
+unsigned int HexArrayToUInt16 (char * pArray);
+
+// draw the entire portion of the output that changes
+// with a change in operands or operator
+//void DrawState (unsigned int iOPA, unsigned int iOPB, Operation op);
+
+
 /* BASIC FUNCTIONS END*******************************************************/
 
 

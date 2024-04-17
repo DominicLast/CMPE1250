@@ -77,7 +77,7 @@ up = 0;
 max = 0xFFFF;
 down = max;
 pos = 0;
-count = 1;
+count = 0;
 pass = 0;
 rTimes = 0;
 lTimes = 0;
@@ -86,7 +86,14 @@ lTimes = 0;
 /********************************************************************/
   for (;;)
   {
-     
+     RTI_Delay_ms(50);
+     SWL_TOG(SWL_RED);
+     count++;
+
+     if(count >= 20){
+      count = 0;
+      SWL_TOG(SWL_GREEN);
+     }
 }
 }
 

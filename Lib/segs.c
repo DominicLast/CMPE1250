@@ -23,7 +23,17 @@ void Segs_Init(void){
     Segs_Custom(6,0b10000000);
     Segs_Custom(7,0b10000000);
 }
+unsigned int HexToBCD(  unsigned int Hex){
+    unsigned char i;
+    unsigned int result = 0, pow = 1;
 
+    for(i=0;i<4;i++){
+        result += (Hex % 10) * pow;
+        Hex /= 10;
+        pow *= 16;
+    }
+    return result;
+}
 // show HEX decoding (changes all of display to HEX, w/wo dp)
 /* Params: (address, data, dp) */
 void Segs_Normal(unsigned char a, unsigned char d, Segs_DPOption dp){
@@ -82,6 +92,12 @@ void Segs_16H (unsigned int value, Segs_LineOption line){
         
     }
 }
+
+void Segs_16D (unsigned int value, Segs_LineOption line){
+    Segs_16H(HexToBCD(value),line);
+}
+
+
 
 // show the 8-bit value starting on the digit as addr (0-6)
 /* Params: (addr, value) */

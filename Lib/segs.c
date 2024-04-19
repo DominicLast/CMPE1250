@@ -93,6 +93,36 @@ void Segs_16H (unsigned int value, Segs_LineOption line){
     }
 }
 
+void Segs_Clear(void){
+    Segs_Custom(0,0b10000000);
+    Segs_Custom(1,0b10000000);
+    Segs_Custom(2,0b10000000);
+    Segs_Custom(3,0b10000000);
+    Segs_Custom(4,0b10000000);
+    Segs_Custom(5,0b10000000);
+    Segs_Custom(6,0b10000000);
+    Segs_Custom(7,0b10000000);
+}
+
+void Segs_ClearLine(Segs_LineOption line){
+        if(line == Segs_LineBottom){
+            Segs_Custom(4,0b10000000);
+            Segs_Custom(5,0b10000000);
+            Segs_Custom(6,0b10000000);
+            Segs_Custom(7,0b10000000);
+        }
+        else if(line == Segs_LineTop){
+                Segs_Custom(0,0b10000000);
+                Segs_Custom(1,0b10000000);
+                Segs_Custom(2,0b10000000);
+                Segs_Custom(3,0b10000000);
+        }
+}
+
+void Segs_ClearDigit(unsigned char pos){
+    Segs_Custom(pos,0b10000000);
+}
+
 void Segs_16D (unsigned int value, Segs_LineOption line){
     Segs_16H(HexToBCD(value),line);
 }

@@ -39,7 +39,7 @@ void carrot(unsigned char);
 /********************************************************************/
 // Global Variables
 /********************************************************************/
-unsigned int up,down,max,count,pos,del,pass,rTimes,lTimes;
+unsigned int count,pos,del,pass,hex,dec;
 /********************************************************************/
 // Constants
 /********************************************************************/
@@ -73,14 +73,11 @@ Segs_Custom(5,0b10001011);
 Segs_Custom(6,0b10110001);
 */
 
-up = 0;
-max = 0xFFFF;
-down = max;
-pos = 0;
+pos = 4;
 count = 0;
 pass = 0;
-rTimes = 0;
-lTimes = 0;
+hex =0;
+dec=1;
 /********************************************************************/
   // main program loop
 /********************************************************************/
@@ -90,9 +87,38 @@ lTimes = 0;
      SWL_TOG(SWL_RED);
      count++;
 
-     if(count >= 20){
+     if(SWL_Pushed(SWL_UP)){
+      hex =1;
+      dec = 0;
+     }
+     else if(SWL_Pushed(SWL_DOWN)){
+      dec = 1;
+      hex =0;
+     }
+     else if(SWL_Pushed(SWL_CTR)){
+      pass = 0;
+     }
+     if(dec){
+          Segs_16D(pass,Segs_LineTop);
+        }
+        else if(hex){
+          Segs_16H(pass,Segs_LineTop);
+        }
+
+     if(count >= 5){
       count = 0;
-      SWL_TOG(SWL_GREEN);
+      
+      if(pos<=7){
+        Segs_Custom(pos,0b00000000);
+        pos++;
+      }
+      else{
+        pos = 4;
+        Segs_ClearLine(Segs_LineBottom);
+        pass++;
+        SWL_TOG(SWL_GREEN);
+        
+      }
      }
 }
 }

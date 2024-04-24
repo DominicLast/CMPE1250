@@ -5,6 +5,8 @@
         "limits": "c",
         "utility": "c",
         "xutility": "c",
-        "xstring": "c"
+        "xstring": "c",
+        "ios": "c",
+        "xiosbase": "c"
     }
 }

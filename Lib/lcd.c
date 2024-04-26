@@ -15,7 +15,25 @@ void LCD_Init(void){
 
     PTH = 0b00111000;
 
-    
+    PORTK|=0b00000001;
+    PORTK&=0b11111000;
+
+    lcd_MicroDelay
+
+    PORTK|=0b00000001;
+    PORTK&=0b11111000;
+
+    lcd_MicroDelay
+
+    PORTK|=0b00000001;
+    PORTK&=0b11111000;
+
+    lcd_MicroDelay
+
+    LCD_Ctrl(0b00111000);
+    LCD_Ctrl(0b00001110);
+    LCD_Ctrl(0b00000001);
+    LCD_Ctrl(0b00000110);
 
 }
 

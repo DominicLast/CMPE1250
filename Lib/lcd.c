@@ -52,11 +52,26 @@ char lcd_Busy(void){
 }
 
 void LCD_Ctrl(unsigned char cCommand){
-    while(lcd_Busy() !=0)
-    {
+    while(lcd_Busy() !=0);
+    
         PTH=cCommand;
-    }
+    
 
     PORTK|=0b00000001;
     PORTK&=0b11111000;
+
+    lcd_Latch;
+}
+
+void lcd_Data(unsigned char data){
+    while (lcd_Busy());
+    PTH = data;
+    PORTK &= ~PORTK_PK1_MASK;
+    PORTK |= PORTK_PK2_MASK;
+
+    // latch data
+
+    PORTK |= PORTK_PK0_MASK;
+    RTI_Delay_ms(5);
+    PORTK &= ~PORTK_PK0_MASK;
 }

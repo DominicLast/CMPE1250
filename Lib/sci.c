@@ -1,6 +1,8 @@
 #include <hidef.h>
 #include "derivative.h"
 #include "sci.h"
+#include <stdio.h> 
+#include <stdlib.h>
 
 void sci0_Init9600 (void){
     SCI0BD = 130; // sets the rate
@@ -46,6 +48,7 @@ int sci0_Peek (void){
     }
 }
 
+// I can now use sprint f to concat strings together and now that i can do that i think i can do anything that is required of me for this section of the exam
 void sci0_GotoXY (int iCol, int iRow){
     char string[8] = "\x1b[2;0H";
     //string[0] = ('\\');

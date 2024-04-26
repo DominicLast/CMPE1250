@@ -51,7 +51,7 @@ char lcd_Busy(void){
     return busyState;
 }
 
-void LCD_Ctrl(unsigned char cCommand){
+void LCD_inst(unsigned char cCommand){
     while(lcd_Busy() !=0);
     
         PTH=cCommand;

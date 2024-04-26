@@ -4,8 +4,8 @@
 #include <stdlib.h>
 #include "misc.h"
 
-int GetRandom (int iLow, int iHighEx){
-    int value = rand() % (iHighEx-iLow) + iLow; 
+unsigned int GetRandom (int iLow, int iHighEx){
+    unsigned int value = rand() % (iHighEx-iLow) + iLow; 
     return value;
 }
 

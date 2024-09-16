@@ -35,6 +35,23 @@
 #define SHIFT_CUR 0
 #define SHIFT_SCR (1<<3)
 
+// macros only apply to library, not for public consumption
+// gotta be inputs, set R/W* high
+#define lcd_RWUp DDRH = 0; PORTK |= 2;
+// set R/W* low, // gotta be outputs
+#define lcd_RWDown PORTK &= (~2); DDRH = 0xFF;
+// this is *snug*, datasheet says PW_EH must be at least 450ns. (P49 + P58)
+// but &= probably implemented as a BCLR instruction (@ 50ns bus, 4 cycles, around 200ns per instruction)
+// measured on scope at ~300ns (which would make sense (6 cycles up/down instructions),
+// not exactly sure when pin changes state in instruction pair)
+// this is actually too short, but appears to work. Either the device is better than expected, or does
+//not match datasheet!
+// other LCDs may require a small delay be added to E strobe operations, or data setup time during read.
+#define lcd_EUp PORTK |= 1;
+#define lcd_EDown PORTK &= (~1);
+#define lcd_RSUp PORTK |= 4;
+#define lcd_RSDown PORTK &= (~4);
+
 #define lcd_MicroDelay { char __x = 10; while (--__x); } // 20MHz Version
 #define lcd_Latch {PORTK_PK0 = 1;lcd_MicroDelay;PORTK_PK0 = 0;}
 
@@ -43,8 +60,9 @@
 /////////////////////////////////////////////////////////////////////////////
 
 void lcd_Init (void);
-void lcd_Ins (unsigned char); //LCD_Inst
-char lcd_Busy (void); //LCD_Inst
+void lcd_Inst (unsigned char); //LCD_Inst
+void lcd_Busy (void); //LCD_Inst
+void LCD_Ctrl(unsigned char cCommand);
 char lcd_GetAddr(void);
 void lcd_Data (unsigned char val);
 void lcd_Addr (unsigned char addr);

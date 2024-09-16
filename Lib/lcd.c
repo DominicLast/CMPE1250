@@ -3,7 +3,25 @@
 #include "lcd.h"
 #include "rti.h"
 
-void LCD_Init(void){
+
+
+//void LCD_Ctrl(unsigned char cCommand){
+  //  while(lcd_Busy() != 0);
+    //PTH=cCommand;
+
+    //PORTK|=0b00000001;
+    //PORTK&=0b11111000;
+//}
+
+//void Lcd_String(char * cString){
+  //  while(*cString!=0)
+    //    Lcd_Char(*cString++);
+
+//}
+
+/*
+
+void Lcd_Init(void){
     PTH = 0x00;
     DDRH = 0xFF;
 
@@ -51,7 +69,7 @@ char lcd_Busy(void){
     return busyState;
 }
 
-void LCD_inst(unsigned char cCommand){
+void Lcd_inst(unsigned char cCommand){
     while(lcd_Busy() !=0);
     
         PTH=cCommand;
@@ -74,4 +92,57 @@ void lcd_Data(unsigned char data){
     PORTK |= PORTK_PK0_MASK;
     RTI_Delay_ms(5);
     PORTK &= ~PORTK_PK0_MASK;
+}
+*/
+
+void lcd_Busy (void){
+    unsigned char inVal = 0;
+    lcd_RSDown // instruction
+    lcd_RWUp // reading
+
+    do
+    {
+        lcd_EUp
+        lcd_MicroDelay
+
+
+        inVal = PTH;
+        lcd_EDown
+    } while (inVal & 0x80);
+    
+}
+
+// send a byte to the inst reg of LCD on custom port
+void lcd_Inst (unsigned char val){
+    lcd_Busy();
+
+    lcd_RWDown
+    lcd_RSDown
+
+    PTH = val;
+
+    lcd_EUp
+    lcd_EDown
+
+}
+
+void lcd_Init (void){
+    PTH=0x38;
+    lcd_EDown
+    lcd_RWDown
+    lcd_RSDown
+    DDRK |= 0b00111000;
+    RTI_Delay_ms(100);
+    lcd_EUp
+    lcd_EDown
+    RTI_Delay_ms(15);
+    lcd_EUp
+    lcd_EDown
+    RTI_Delay_ms(1);
+    lcd_Inst(0x38);
+    lcd_Inst(0x0C);
+    lcd_Inst(0x01);
+    lcd_Inst(0x06);
+
+
 }

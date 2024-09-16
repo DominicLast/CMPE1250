@@ -172,3 +172,8 @@ void lcd_Clear (void){
 void lcd_Addr (unsigned char addr){
     lcd_Inst(addr);
 }
+
+void lcd_String (char const * straddr){
+    for (; *straddr; ++straddr){
+ lcd_Data(*straddr);}
+}

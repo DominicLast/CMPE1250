@@ -66,13 +66,13 @@ Segs_Init();
 
 // tier 1
 
-Segs_Normal(4,'3',Segs_DP_OFF);
-Segs_8H(0,0x40);
-Segs_8H(6,0x0E);
-Segs_Custom(1,0b01001010);
-Segs_Custom(2,0b11110000);
-Segs_Custom(5,0b10001011);
-Segs_Custom(6,0b10110001);
+//Segs_Normal(4,'3',Segs_DP_OFF);
+//Segs_8H(0,0x40);
+//Segs_8H(6,0x0E);
+//Segs_Custom(1,0b01001010);
+//Segs_Custom(2,0b11110000);
+//Segs_Custom(5,0b10001011);
+//Segs_Custom(6,0b10110001);
 
 
 pos = 4;
@@ -80,7 +80,12 @@ count = 0;
 pass = 0;
 hex =0;
 dec=1;
-Lcd_Init();
+lcd_Init();
+lcd_Data('D');
+lcd_Data('O');
+lcd_Data('M');
+lcd_Clear();
+lcd_Data('D');
 /********************************************************************/
   // main program loop
 /********************************************************************/

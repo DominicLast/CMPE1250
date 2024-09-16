@@ -62,7 +62,6 @@
 void lcd_Init (void);
 void lcd_Inst (unsigned char); //LCD_Inst
 void lcd_Busy (void); //LCD_Inst
-void LCD_Ctrl(unsigned char cCommand);
 char lcd_GetAddr(void);
 void lcd_Data (unsigned char val);
 void lcd_Addr (unsigned char addr);

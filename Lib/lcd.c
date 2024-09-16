@@ -131,7 +131,7 @@ void lcd_Init (void){
     lcd_EDown
     lcd_RWDown
     lcd_RSDown
-    DDRK |= 0b00111000;
+    DDRK|=0b00000111;
     RTI_Delay_ms(100);
     lcd_EUp
     lcd_EDown
@@ -145,4 +145,30 @@ void lcd_Init (void){
     lcd_Inst(0x06);
 
 
+}
+
+void lcd_Data (unsigned char val){
+    lcd_Busy();
+
+    lcd_RWDown
+    lcd_RSUp
+
+    PTH = val;
+
+    lcd_EUp
+    lcd_EDown
+
+}
+
+void lcd_Clear (void){
+
+    lcd_Inst(0x38);
+    lcd_Inst(0x0C);
+    lcd_Inst(0x01);
+    lcd_Inst(0x06);
+
+}
+
+void lcd_Addr (unsigned char addr){
+    lcd_Inst(addr);
 }

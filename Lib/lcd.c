@@ -170,7 +170,15 @@ void lcd_Clear (void){
 }
 
 void lcd_Addr (unsigned char addr){
-    lcd_Inst(addr);
+    lcd_Busy();
+
+    lcd_RWUp
+    lcd_RSUp
+
+    PTH = addr;
+
+    lcd_EUp
+    lcd_EDown
 }
 
 void lcd_String (char const * straddr){

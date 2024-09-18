@@ -64,7 +64,7 @@ void lcd_Inst (unsigned char); //LCD_Inst
 void lcd_Busy (void); //LCD_Inst
 char lcd_GetAddr(void);
 void lcd_Data (unsigned char val);
-void lcd_Addr (unsigned char addr);
+void lcd_Addr (unsigned char row);
 void lcd_AddrXY (unsigned char ix, unsigned char iy);
 void lcd_String (char const * straddr);
 void lcdSmartString(char const * straddr, unsigned int delay);

@@ -81,19 +81,15 @@ pass = 0;
 hex =0;
 dec=1;
 lcd_Init();
-lcd_Data('D');
-lcd_Data('O');
-lcd_Data('M');
-lcd_Clear();
-lcd_String("DOM");
-lcd_Addr(0x00);
-lcd_Data('Y');
+lcd_Addr(1);
+lcd_Data('X');
 /********************************************************************/
   // main program loop
 /********************************************************************/
   for (;;)
   {
      
+    // RTI_Delay_ms(100);
      }
 }
 

@@ -209,6 +209,12 @@ void lcd_AddrXY (unsigned char ix, unsigned char iy){
     lcd_Inst(0x80 | address); // Set DDRAM address
 }
 
+
+void lcd_StringXY (unsigned char ix, unsigned char iy, char const * const straddr){
+    lcd_AddrXY(ix,iy);
+    lcd_String(straddr);
+}
+
 void lcd_String (char const * straddr){
     for (; *straddr; ++straddr){
  lcd_Data(*straddr);}

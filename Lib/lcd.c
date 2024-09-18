@@ -189,6 +189,26 @@ void lcd_Addr (unsigned char row){
     lcd_Inst(0x80 | address); // Set DDRAM address
 }
 
+void lcd_AddrXY (unsigned char ix, unsigned char iy){
+    unsigned char address;
+
+    // Calculate the address based on row and column
+    if (ix == 0) {
+        address = 0x00 + iy; // First row
+    } else if (ix == 1) {
+        address = 0x40 + iy; // Second row
+    } else if (ix == 2) {
+        address = 0x14 + iy; // Third row (if applicable)
+    } else if (ix == 3) {
+        address = 0x54 + iy; // Fourth row (if applicable)
+    } else {
+        return; // Invalid row
+    }
+
+    // Send the command to set the cursor position
+    lcd_Inst(0x80 | address); // Set DDRAM address
+}
+
 void lcd_String (char const * straddr){
     for (; *straddr; ++straddr){
  lcd_Data(*straddr);}
